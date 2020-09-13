@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<style type="text/css">
+input{
+	font-size:3em;
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+
+var host = "http://192.168.1.201:8080/";
+
+$(document).on("click", "#btn_news",function(){
+  $.get(host + "viewNewsToRgbLed",{rgb: $('input:radio[name="rgb"]:checked').val()} );
+});
+
+$(document).on("click", "#btn_welcomeMsg",function(){
+  $.get(host + "welcomeMsg",{text: $('input:text[name="text"]').val(),rgb: $('input:radio[name="rgb"]:checked').val()} );
+});
+
+$(document).on("click", "#btn_stopwelcomeMsg",function(){
+  $.get(host + "stopwelcomeMsg");
+});
+
+</script>
+
+</head>
+<body>
+<br/><br/><br/>
+<div align="center">
+<input type="button" id="btn_welcomeMsg" style="width:30%;padding:10px;font-size:30px;" value="人感開始"/>
+<input type="button" id="btn_stopwelcomeMsg" style="width:30%;padding:10px;font-size:30px;" value="人感停止"/>
+<br/><br/>
+<form action="http://192.168.1.201:8080/stopNews" method="get">
+<input type="button" id="btn_news" style="width:30%;padding:10px;font-size:30px;" value="News表示"/>
+<input type="submit" style="width:30%;padding:10px;font-size:30px;" value="News停止"/>
+</form>
+<br/>
+<form action="http://192.168.1.201:8080/EMERGENCY" method="get">
+<input type="submit" style="width:50%;padding:10px;font-size:30px;" value="EMERGENCY"/>
+</form>
+</div>
+<br/>
+<div align="center">
+<form action="http://192.168.1.201:8080/viewTextToRgbLed" method="get">
+<input type="text" name="text" size="100">
+<br/>
+表示時間（秒）<input type="text" name="viewTime" size="10" value="10">
+<br/><br/>
+<input type="submit" style="width:50%;padding:10px;font-size:30px;" value="LED文字表示">
+<br/>
+<br/>
+
+<table summary="W3C標準 16色" style="width: 600px;font-size:30px;">
+<colgroup span="3"></colgroup>
+<colgroup span="1" style="background-color:#FCC"></colgroup>
+<colgroup span="1" style="background-color:#98FB98"></colgroup>
+<colgroup span="1" style="background-color:#D9E5FF"></colgroup>
+<tr>
+<th class="waku" colspan="1" abbr="ラジオボタン"></th>
+<th class="waku" colspan="3" abbr="色名・色数値"><h2>W3C標準 基本16色</h2></th>
+<th class="waku" colspan="3" abbr="RGB数値" style="background-color: #FFF;">10進数　<small class="thin">例：　rgb(255,0,0)</small></th>
+</tr>
+<tr>
+<td class="waku">選択</td>
+<td class="waku">カラー名</td>
+<td class="waku">16進数</td>
+<td class="waku">短縮系</td>
+<td class="waku red" style="background-color: #FFF;">R値</td>
+<td class="waku" style="background-color: #FFF; color: green;">G値</td>
+<td class="waku blu" style="background-color: #FFF;">B値</td>
+</tr>
+<tr>
+<td><input type="radio" name="rgb" value="000,000,000"></td>
+<td style="background-color:black" class="lit">black</td>
+<td style="background-color:#000000" class="lit">#000000</td>
+<td style="background-color:#000" class="lit">#000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><input type="radio" name="rgb" value="128,128,128"></td>
+<td style="background-color:gray" class="lit">gray</td>
+<td style="background-color:#808080" class="lit join" colspan="2">#808080</td>
+<td>128</td>
+<td>128</td>
+<td>128</td>
+</tr>
+<tr>
+<td><input type="radio" name="rgb" value="192,192,192"></td>
+<td style="background-color:silver">silver</td>
+<td style="background-color:#c0c0c0;" class="join" colspan="2">#C0C0C0</td>
+<td>192</td>
+<td>192</td>
+<td>192</td>
+</tr>
+<tr>
+<td><input type="radio" name="rgb" value="255,255,255"></td>
+<td style="background-color:white" class="waku">white</td>
+<td style="background-color:#FFFFFF;" class="waku">#FFFFFF</td>
+<td style="background-color:#FFF;" class="waku">#FFF</td>
+<td>255</td>
+<td>255</td>
+<td>255</td>
+</tr>
+<tr>
+<td><input type="radio" name="rgb" value="0,0,255"></td>
+<td style="background-color:blue" class="lit">blue</td>
+<td style="background-color:#0000FF" class="lit">#0000FF</td>
+<td style="background-color:#00F" class="lit">#00F</td>
+<td>0</td>
+<td>0</td>
+<td>255</td>
+</tr>
+<tr>
+<td><input type="radio" name="rgb" value="0,0,128"></td>
+<td style="background-color:#000080" class="lit">navy</td>
+<td style="background-color:#000080" class="lit join" colspan="2">#000080</td>
+<td>0</td>
+<td>0</td>
+<td>128</td>
+</tr>
+<tr>
+<td><input type="radio" name="rgb" value="0,128,128"></td>
+<td style="background-color:teal" class="lit">teal</td>
+<td style="background-color:#008080" class="lit join" colspan="2">#008080</td>
+<td>0</td>
+<td>128</td>
+<td>128</td>
+</tr>
+<tr>
+<td><input type="radio" name="rgb" value="0,128,0"></td>
+<td style="background-color:green" class="lit">green</td>
+<td style="background-color:#008000" class="lit join" colspan="2">#008000</td>
+<td>0</td>
+<td>128</td>
+<td>0</td>
+</tr>
+<tr>
+<td><input type="radio" name="rgb" value="0,255,0"></td>
+<td style="background-color:lime">lime</td>
+<td style="background-color:#00FF00;">#00FF00</td>
+<td style="background-color:#0F0">#0F0</td>
+<td>0</td>
+<td>255</td>
+<td>0</td>
+</tr>
+<tr>
+<td><input type="radio" name="rgb" value="0,255,255" checked></td>
+<td style="background-color:aqua">aqua</td>
+<td style="background-color:#00FFFF;">#00FFFF</td>
+<td style="background-color:#0FF;">#0FF</td>
+<td>0</td>
+<td>255</td>
+<td>255</td>
+</tr>
+<tr>
+<td><input type="radio" name="rgb" value="255,255,0"></td>
+<td style="background-color:yellow">yellow</td>
+<td style="background-color:#FFFF00">#FFFF00</td>
+<td style="background-color:#FF0">#FF0</td>
+<td>255</td>
+<td>255</td>
+<td>0</td>
+</tr>
+<tr>
+<td><input type="radio" name="rgb" value="255,0,0"></td>
+<td style="background-color:red">red</td>
+<td style="background-color:#FF0000">#FF0000</td>
+<td style="background-color:#F00">#F00</td>
+<td>255</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><input type="radio" name="rgb" value="255,0,255"></td>
+<td style="background-color:fuchsia">fuchsia</td>
+<td style="background-color:#FF00FF">#FF00FF</td>
+<td style="background-color:#F0F">#F0F</td>
+<td>255</td>
+<td>0</td>
+<td>255</td>
+</tr>
+<tr>
+<td><input type="radio" name="rgb" value="128,128,0"></td>
+<td style="background-color:olive" class="lit">olive</td>
+<td style="background-color:#808000" class="lit join" colspan="2">#808000</td>
+<td>128</td>
+<td>128</td>
+<td>0</td>
+</tr>
+<tr>
+<td><input type="radio" name="rgb" value="128,0,128"></td>
+<td style="background-color:purple" class="lit">purple</td>
+<td style="background-color:#800080" class="lit join" colspan="2">#800080</td>
+<td>128</td>
+<td>0</td>
+<td>128</td>
+</tr>
+<tr>
+<td><input type="radio" name="rgb" value="128,0,0"></td>
+<td style="background-color:maroon" class="lit">maroon</td>
+<td style="background-color:#800000" class="lit join" colspan="2">#800000</td>
+<td>128</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</table>
+</form >
+</div>
+
+</body>
+</html>
+
