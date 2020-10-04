@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 import time
 import random
 import getTemp
+import getTime
 
 delay = 0.000001
 
@@ -139,7 +140,7 @@ def set_num(n,x,y,coler):
         set_pixel(2+x,0+y,coler);set_pixel(2+x,3+y,coler);set_pixel(2+x,5+y,coler);
         set_pixel(3+x,1+y,coler);set_pixel(3+x,4+y,coler);
     elif n == 7:
-        set_pixel(0+x,0+y,coler);set_pixel(0+x,4+y,coler);set_pixel(0+x,5+y,coler);
+        set_pixel(0+x,0+y,coler);set_pixel(1+x,4+y,coler);set_pixel(1+x,5+y,coler);
         set_pixel(1+x,0+y,coler);set_pixel(1+x,3+y,coler);
         set_pixel(2+x,0+y,coler);set_pixel(2+x,2+y,coler);
         set_pixel(3+x,0+y,coler);set_pixel(3+x,1+y,coler);
@@ -155,8 +156,8 @@ def set_num(n,x,y,coler):
         set_pixel(3+x,1+y,coler);set_pixel(3+x,2+y,coler);set_pixel(3+x,3+y,coler);set_pixel(3+x,4+y,coler);
     elif n == 0:
         set_pixel(0+x,1+y,coler);set_pixel(0+x,2+y,coler);set_pixel(0+x,3+y,coler);set_pixel(0+x,4+y,coler);
-        set_pixel(1+x,0+y,coler);set_pixel(1+x,3+y,coler);set_pixel(1+x,5+y,coler);
-        set_pixel(2+x,0+y,coler);set_pixel(2+x,2+y,coler);set_pixel(2+x,5+y,coler);
+        set_pixel(1+x,0+y,coler);set_pixel(1+x,5+y,coler);
+        set_pixel(2+x,0+y,coler);set_pixel(2+x,5+y,coler);
         set_pixel(3+x,1+y,coler);set_pixel(3+x,2+y,coler);set_pixel(3+x,3+y,coler);set_pixel(3+x,4+y,coler);
     elif n == 99:
         set_pixel(0+x,5+y,coler);
@@ -172,22 +173,50 @@ def set_num(n,x,y,coler):
 #set_num(8,40,0,1)
 #set_num(9,45,0,1)
 
-coler=2
+ccoler = 3
+t = getTime.get_timeArry()
+set_num(int(t[0]),33,1,ccoler)
+set_num(int(t[1]),38,1,ccoler)
+set_pixel(43,2,ccoler)
+set_pixel(43,5,ccoler)
+set_num(int(t[2]),45,1,ccoler)
+set_num(int(t[3]),50,1,ccoler)
 
+tcoler = 2
 temp = getTemp.get_temp()
-set_num(int(temp[0]),0,0,coler)
-set_num(int(temp[1]),5,0,coler)
-set_num(99,10,0,coler)
-set_num(int(temp[2]),12,0,coler)
+set_num(int(temp[0]),1,1,tcoler)
+set_num(int(temp[1]),6,1,tcoler)
+set_num(99,11,1,tcoler)
+set_num(int(temp[2]),12,1,tcoler)
+
+hcoler = 4
+set_num(int(temp[3]),1,9,hcoler)
+set_num(int(temp[4]),6,9,hcoler)
+set_num(99,11,9,hcoler)
+set_num(int(temp[5]),12,9,hcoler)
 
 while True:
 
     if time.localtime()[5] % 61 == 0:
         temp = getTemp.get_temp()
         set_init()
-        set_num(int(temp[0]),0,0,coler)
-        set_num(int(temp[1]),5,0,coler)
-        set_num(99,10,0,coler)
-        set_num(int(temp[2]),12,0,coler)
+        set_num(int(temp[0]),1,1,tcoler)
+        set_num(int(temp[1]),6,1,tcoler)
+        set_num(99,11,1,tcoler)
+        set_num(int(temp[2]),12,1,tcoler)
+        
+        set_num(int(temp[3]),1,9,hcoler)
+        set_num(int(temp[4]),6,9,hcoler)
+        set_num(99,11,9,hcoler)
+        set_num(int(temp[5]),12,9,hcoler)
+    
+        t = getTime.get_timeArry()
+        set_num(int(t[0]),33,1,ccoler)
+        set_num(int(t[1]),38,1,ccoler)
+        set_pixel(43,2,ccoler)
+        set_pixel(43,5,ccoler)
+        set_num(int(t[2]),45,1,ccoler)
+        set_num(int(t[3]),50,1,ccoler)
+
     refresh()
 
